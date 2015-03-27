@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Account ID:</strong>
+  <%= @account.id %>
   <strong>Balance:</strong>
   <%= @account.balance %>
 </p>
@@ -35,7 +37,7 @@
   <%= form_for(@account, :as => :transfer, :url => transfer_account_path(@account), :method => :post) do |f| %>
     <div class="field">
       <%= f.label :target %><br>
-      <%= text_field_tag :target %>
+      <%= select_tag :target, options_from_collection_for_select(Account.where.not(id: @account.id), "id", "id") %>
     </div>
     <div class="field">
       <%= f.label :amount %><br>
