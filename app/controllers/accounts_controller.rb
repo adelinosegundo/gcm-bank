@@ -65,6 +65,9 @@ class AccountsController < ApplicationController
     command = DepositCommand.new(params[:id], params[:amount])
     if command.valid?
       command.perform
+      CUSTOM_LOGGER.info("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
+    else
+      CUSTOM_LOGGER.error("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
     end
     redirect_to @account
   end
@@ -73,6 +76,9 @@ class AccountsController < ApplicationController
     command = WithdrawCommand.new(params[:id], params[:amount])
     if command.valid?
       command.perform
+      CUSTOM_LOGGER.info("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
+    else
+      CUSTOM_LOGGER.error("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
     end
     redirect_to @account
   end
@@ -83,6 +89,9 @@ class AccountsController < ApplicationController
     if source_command.valid? && target_command.valid? && Account.all.collect(&:id).include?(params[:target].to_i)
       source_command.perform
       target_command.perform
+      CUSTOM_LOGGER.info("Transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
+    else
+      CUSTOM_LOGGER.error("Transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
     end
     redirect_to @account
   end
