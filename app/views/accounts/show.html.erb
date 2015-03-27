@@ -5,5 +5,46 @@
   <%= @account.balance %>
 </p>
 
+<p>
+  Depositar
+  <%= form_for(@account, :as => :deposit, :url => deposit_account_path(@account), :method => :post) do |f| %>
+    <div class="field">
+      <%= f.label :amount %><br>
+      <%= text_field_tag :amount %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</p>
+
+<p>
+  Sacar
+  <%= form_for(@account, :as => :withdraw, :url => withdraw_account_path(@account), :method => :post) do |f| %>
+    <div class="field">
+      <%= f.label :amount %><br>
+      <%= text_field_tag :amount %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</p>
+<p>
+  Transferir
+  <%= form_for(@account, :as => :transfer, :url => transfer_account_path(@account), :method => :post) do |f| %>
+    <div class="field">
+      <%= f.label :target %><br>
+      <%= text_field_tag :target %>
+    </div>
+    <div class="field">
+      <%= f.label :amount %><br>
+      <%= text_field_tag :amount %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</p>
 <%= link_to 'Edit', edit_account_path(@account) %> |
 <%= link_to 'Back', accounts_path %>

@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-  before_action :set_account, only: [:show, :edit, :update, :destroy]
+  before_action :set_account, only: [:show, :edit, :update, :destroy, :transfer, :deposit, :withdraw]
 
   # GET /accounts
   # GET /accounts.json
@@ -59,6 +59,32 @@ class AccountsController < ApplicationController
       format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def deposit
+    command = DepositCommand.new(params[:id], params[:amount])
+    if command.valid?
+      command.perform
+    end
+    redirect_to @account
+  end
+
+  def withdraw
+    command = WithdrawCommand.new(params[:id], params[:amount])
+    if command.valid?
+      command.perform
+    end
+    redirect_to @account
+  end
+
+  def transfer
+    source_command = WithdrawCommand.new(params[:id], params[:amount])
+    target_command = DepositCommand.new(params[:target], params[:amount])
+    if source_command.valid? && target_command.valid? && Account.all.collect(&:id).include?(params[:target].to_i)
+      source_command.perform
+      target_command.perform
+    end
+    redirect_to @account
   end
 
   private
