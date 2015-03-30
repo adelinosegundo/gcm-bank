@@ -80,7 +80,7 @@ class AccountsController < ApplicationController
     else
       CUSTOM_LOGGER.error("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
     end
-    redirect_to @account
+    redirect_to @account, notice: "Débito no valor #{params[:amount]} para a conta #{params[:id]} realizado com sucesso"
   end
 
   def transfer
