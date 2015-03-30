@@ -69,7 +69,7 @@ class AccountsController < ApplicationController
     else
       CUSTOM_LOGGER.error("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
     end
-    redirect_to @account, notice: "Crédito no valor #{params[:amount]} para a conta #{params[:id]} realizado com sucesso."
+    redirect_to @account, notice: "Credito no valor #{params[:amount]} para a conta #{params[:id]} realizado com sucesso. Bonus de #{params[:amount]/10} creditado."
   end
 
   def withdraw
