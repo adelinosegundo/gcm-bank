@@ -65,9 +65,9 @@ class AccountsController < ApplicationController
     command = DepositCommand.new(params[:id], params[:amount])
     if command.valid?
       command.perform
-      CUSTOM_LOGGER.info("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
+      CUSTOM_LOGGER.info("Custom deposit: "+ params[:amount] + " in Account:" + params[:id] )
     else
-      CUSTOM_LOGGER.error("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
+      CUSTOM_LOGGER.error("Custom deposit: "+ params[:amount] + " in Account:" + params[:id] )
     end
     redirect_to @account, notice: "Credito no valor #{params[:amount]} para a conta #{params[:id]} realizado com sucesso. Bonus de #{params[:amount]/10} creditado."
   end
@@ -76,9 +76,9 @@ class AccountsController < ApplicationController
     command = WithdrawCommand.new(params[:id], params[:amount])
     if command.valid?
       command.perform
-      CUSTOM_LOGGER.info("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
+      CUSTOM_LOGGER.info("Custom withdraw: "+ params[:amount] + " in Account:" + params[:id] )
     else
-      CUSTOM_LOGGER.error("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
+      CUSTOM_LOGGER.error("Custom withdraw: "+ params[:amount] + " in Account:" + params[:id] )
     end
     redirect_to @account, notice: "Débito no valor #{params[:amount]} para a conta #{params[:id]} realizado com sucesso"
   end
@@ -89,9 +89,9 @@ class AccountsController < ApplicationController
     if source_command.valid? && target_command.valid? && Account.all.collect(&:id).include?(params[:target].to_i)
       source_command.perform
       target_command.perform
-      CUSTOM_LOGGER.info("Transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
+      CUSTOM_LOGGER.info("Custom transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
     else
-      CUSTOM_LOGGER.error("Transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
+      CUSTOM_LOGGER.error("Custom transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
     end
     redirect_to @account, notice:  "Transferencia no valor #{params[:amount]} para a conta #{params[:target]} realizado com sucesso"
   end
