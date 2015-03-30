@@ -93,7 +93,7 @@ class AccountsController < ApplicationController
     else
       CUSTOM_LOGGER.error("Transfer: "+ params[:amount] + " from Account:" + params[:id] + " to Account:" + params[:target] )
     end
-    redirect_to @account
+    redirect_to @account, notice:  "Transferencia no valor #{params[:amount]} para a conta #{params[:target]} realizado com sucesso"
   end
 
   private
