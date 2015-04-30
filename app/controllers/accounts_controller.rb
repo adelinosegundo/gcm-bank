@@ -76,6 +76,7 @@ class AccountsController < ApplicationController
     command = WithdrawCommand.new(params[:id], params[:amount])
     if command.valid?
       command.perform
+      ##new debit message
       CUSTOM_LOGGER.info("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
     else
       CUSTOM_LOGGER.error("Withdraw: "+ params[:amount] + " in Account:" + params[:id] )
