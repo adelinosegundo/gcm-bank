@@ -65,6 +65,7 @@ class AccountsController < ApplicationController
     command = DepositCommand.new(params[:id], params[:amount])
     if command.valid?
       command.perform
+      ##new credit message
       CUSTOM_LOGGER.info("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
     else
       CUSTOM_LOGGER.error("Deposit: "+ params[:amount] + " in Account:" + params[:id] )
