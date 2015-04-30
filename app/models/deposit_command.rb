@@ -13,7 +13,7 @@ class DepositCommand
   def perform
     account = Account.find(self.account_id)
     account.balance += amount.to_f
-    account.bonus += amount/20
+    account.bonus += (amount.to_f)*0.03
     account.save!
   end
 end
