@@ -11,6 +11,7 @@ class DepositCommand
   end
 
   def perform
+    ## deposit in savings
     account = Account.find(self.account_id)
     account.balance += amount.to_f
     account.bonus += (amount.to_f)*0.03
