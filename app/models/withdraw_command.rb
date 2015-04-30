@@ -11,6 +11,7 @@ class WithdrawCommand
   end
 
   def perform
+    ##minimun 2 buck in account
     account = Account.find(self.account_id)
     account.balance -= amount.to_f
     account.save!
