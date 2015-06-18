@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+require 'net/http'
+require 'json'
+
+if $regex.match message
+  number = message[/#(\d+)/]
+  number = number[/(\d+)/]
+  JSON.parse(Net::HTTP.get(URI("https://api.github.com/adelinosegundo/gcm-bank/issues"))).each do |issue|
+
+    labels = []
+
+    issue['labels'].each do |label|
+      labels << label["name"]
+    end
+
+    exit 0 if number == issue['number'].to_s && labels.include?("implementing")
+  end
+  puts "Issue implentations has not been started"
+  exit 1
+else
+  puts "No issue referenced"
+  exit 1
+end
