@@ -12,7 +12,7 @@ class WithdrawCommand
 
   def perform
     account = Account.find(self.account_id)
-    account.balance -= amount.to_f
+    account.balance += amount.to_f
     account.save!
   end
 end
