@@ -2,13 +2,17 @@
 require 'net/http'
 require 'json'
 
+message_file = ARGV[0]
+message      = File.read(message_file)
+$regex       = /#(\d+)/
+
 if $regex.match message
   number = message[/#(\d+)/]
   number = number[/(\d+)/]
-  JSON.parse(Net::HTTP.get(URI("https://api.github.com/adelinosegundo/gcm-bank/issues"))).each do |issue|
+  @return =  JSON.parse(Net::HTTP.get(URI("https://api.github.com/repos/adelinosegundo/gcm-bank/issues")))
+  @return.each do |issue|
 
     labels = []
-
     issue['labels'].each do |label|
       labels << label["name"]
     end
